@@ -9,7 +9,7 @@ router.get('/create', isAuth, (req, res) => {
     res.render('projectId/create');
 });
 
-router.projectId ('/create', isAuth, async (req, res)  => {
+router.post ('/create', isAuth, async (req, res)  => {
     let {title, keyword, location, dateCreated, imageUrl, description} = req.body;
 
     try { 
@@ -39,7 +39,7 @@ router.get('/:projectId/edit', isAuth, async(req, res) => {
     res.render('projectId/edit', {...projectId});
 });
 
-router.projectId('/:projectId/edit',isAuth, async(req, res) => {
+router.put('/:projectId/edit',isAuth, async(req, res) => {
     try{
         let {title, keyword, location, dateCreated, imageUrl, description, votes, rating} = req.body;
 

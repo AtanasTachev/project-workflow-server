@@ -16,7 +16,6 @@ app.use(cookieParser());
 app.use(auth);
 app.use(cors());
 
-require('./config/handlebars')(app);
 require ('dotenv/config');
 
 app.use(routes);

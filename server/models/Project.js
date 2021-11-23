@@ -51,7 +51,7 @@ projectSchema.method('duration', function() {
 
 });
 
-projectSchema.method('team', function() {
+projectSchema.method('teamJoin', function() {
 
     return this.team.map(x => `${x.specialty}:${x.title} ${x.firstname} ${x.lastName}`).join(', ');
 

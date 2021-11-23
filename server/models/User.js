@@ -4,10 +4,12 @@ const SALT = 10;
 
 const userSchema = new mongoose.Schema ({
     specialty: {
+        type: String,
         enum: ['Arch', 'Struct', 'WSS', 'El', 'HVAC', 'FS', 'LS', 'GD'],
         required: true,
     },
     title: {
+        type: String,
         enum: ['arch.', 'eng.', 'l.arch.'],
         required: true,
     },
