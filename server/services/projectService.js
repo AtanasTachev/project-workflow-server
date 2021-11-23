@@ -31,12 +31,12 @@ exports.deleteOne = function (id) {
     return Project.findByIdAndDelete(id).lean();
 };
 
-exports.join = async function (projectId, userId, join) {
+exports.join = async function (projectId, userId) {
 
     let user = await User.findByIdAndUpdate(userId, {
         $push: { projectsJoined: projectId }
     });
-    let join = await Project.findByIdAndUpdate(projectId, {
+    let joinProject = await Project.findByIdAndUpdate(projectId, {
         $push: { $push: { team: userId } }
     });
     return [project, user];
