@@ -10,14 +10,14 @@ router.get('/create-project', isAuth, (req, res) => {
 });
 
 router.post ('/create-project', isAuth, async (req, res)  => {
-    let {title, keyword, location, dateCreated, imageUrl, description} = req.body;
+    let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
     try { 
-        await projectService.create( title, keyword, location, dateCreated, imageUrl, description, req.user._id, req.params.projectId );
+        await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead, req.user._id );
         res.redirect('/');
     } catch (error) { 
         let projectId = await projectService.getOne(req.params.projectId);
-        res.render(`project/create`, {...project, error: error.message});
+        res.render(`project/create-project`, {...project, error: error.message});
     }
 
 });
