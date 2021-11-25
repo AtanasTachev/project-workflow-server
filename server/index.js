@@ -20,7 +20,7 @@ require ('dotenv/config');
 
 app.use(routes);
 
-initDatabase(process.env.DB_Connection)
+initDatabase(config.DB_Connection)
 .then(() => {
     app.listen(config.port, console.log.bind(console, `App runnig at http://localhost:${config.port}`));
     console.log('Connected to DB...');
