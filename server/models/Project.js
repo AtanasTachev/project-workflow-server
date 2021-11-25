@@ -39,6 +39,11 @@ const projectSchema = new mongoose.Schema ({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
+    creator: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    },
+
     team: [{
         type: mongoose.Types.ObjectId,
         ref: 'User'
