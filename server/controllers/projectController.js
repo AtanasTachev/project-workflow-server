@@ -5,11 +5,11 @@ const projectService = require('../services/projectService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwn } = require('../middlewares/projectMiddleware');
 
-router.get('/create', isAuth, (req, res) => {
+router.get('/create-project', isAuth, (req, res) => {
     res.render('projectId/create');
 });
 
-router.post ('/create', isAuth, async (req, res)  => {
+router.post ('/create-project', isAuth, async (req, res)  => {
     let {title, keyword, location, dateCreated, imageUrl, description} = req.body;
 
     try { 
