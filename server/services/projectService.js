@@ -17,7 +17,7 @@ exports.create = async function (projectData) {
 };
 
 exports.getOne = function (id) {
-    return Post.findById(id).lean();
+    return Project.findById(id).lean();
 };
 
 exports.updateOne = function (id, 
