@@ -20,7 +20,7 @@ require ('dotenv/config');
 
 app.use(routes);
 
-initDatabase('mongodb://localhost:27017/ProjectWorkflow')
+initDatabase(config.dbConnection)
 .then(() => {
     app.listen(config.port, console.log.bind(console, `App runnig at http://localhost:${config.port}`));
     console.log('Connected to DB...');
