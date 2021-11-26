@@ -22,7 +22,7 @@ app.use(routes);
 
 console.log(config.dbConnection);
 
-initDatabase(config.dbConnection)
+initDatabase('mongodb://localhost:27017/ProjectWorkflow')
 .then(() => {
     app.listen(config.port, console.log.bind(console, `App runnig at http://localhost:${config.port}`));
     console.log('Connected to DB...');
