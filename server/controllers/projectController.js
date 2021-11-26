@@ -10,40 +10,40 @@ router.post ('/create-project', isAuth, async (req, res)  => {
 
     try { 
         await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead, req.user._id );
-        res.redirect('/');
+        res.json({ok: true});
     } catch (error) { 
-        let projectId = await projectService.getOne(req.params.projectId);
-        res.render(`project/create-project`, {...project, error: error.message});
+        // let projectId = await projectService.getOne(req.params.projectId);
+        res.json(error);
     }
 
 });
 
 router.get('/:projectId/details', async (req, res) => {
-    let projectId = await projectService.getOne(req.params.projectId);
+    let project = await projectService.getOne(req.params.projectId);
 
-    let isOwn = req.user?._id == projectId.author;
+    let isOwn = req.user?._id == project.creator;
 
-    res.render('projectId/details', {...projectId, isOwn})
+    res.json(project);
 });
 
 router.get('/:projectId/edit', isAuth, async(req, res) => {
 
-    let projectId = await projectService.getOne(req.params.projectId);
+    let project = await projectService.getOne(req.params.projectId);
 
-    res.render('projectId/edit', {...projectId});
+    res.json(project);
 });
 
 router.put('/:projectId/edit',isAuth, async(req, res) => {
     try{
-        let {title, keyword, location, dateCreated, imageUrl, description, votes, rating} = req.body;
+        let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
         let projectId = req.params.projectId;
-        await projectService.updateOne(projectId, {title, keyword, location, dateCreated, imageUrl, description, votes, rating});
-        res.redirect(`/projectId/${req.params.projectId}/details`);
+        await projectService.updateOne(projectId, {title, contractor, location, startDate, dueDate, imageUrl, description, lead});
+        res.json({ok: true});
         
     }catch(error) {
-        let projectId = await projectService.getOne(req.params.projectId);
-        res.render('projectId/edit', {...projectId, error: error.message});
+        let project = await projectService.getOne(req.params.projectId);
+        res.json(project);
     }
 
 });
@@ -51,10 +51,10 @@ router.put('/:projectId/edit',isAuth, async(req, res) => {
 router.get('/:projectId/delete', isAuth, isOwn, async(req, res) => {
     try{
         await projectService.deleteOne(req.params.projectId);
-        res.redirect('/');
+        res.json({ok: true});
 
     }catch(error) {
-        res.render('projectId/details', {error: error.message});
+        res.json(error);
     }
 });
 
