@@ -3,10 +3,6 @@ const { TOKEN_COOKIE } = require('../constants');
 const authService = require('../services/authService');
 const { isAuth } = require('../middlewares/authMiddleware');
 
-router.get('/register', (req, res) => {
-    res.render('auth/register');
-});
-
 router.post('/register', async (req, res) => {
     let {firstName, lastName, email, password, repeatPassword } = req.body;
     try {
@@ -15,20 +11,16 @@ router.post('/register', async (req, res) => {
             res.redirect('/');
         }
     } catch (error) {
-        res.render('auth/register', {error: error.message});
+        res.json(error);
     }
 });
-
-router.get('/login', (req, res) => {
-    res.render('auth/login');
-}); 
 
 router.post('/login', async(req, res) => {
     const { email, password } = req.body;
     try{ 
         let user = await authService.login(email, password);
         if(!user) {
-            return res.render('auth/register',{error:`There is no such user or password.${error.message}`});
+            return res.json(error);
         }
 
         let token = await authService.createToken(user);
@@ -38,7 +30,7 @@ router.post('/login', async(req, res) => {
         });
         res.redirect('/');
     } catch (error) {
-        res.render('auth/register', {error: error.message});
+        res.json(error);
         
     }
 });
@@ -54,9 +46,9 @@ router.get('/:userId/my-projects', isAuth, async (req, res) => {
         let user = await authService.getUser(req.user._id);
         let email = req.user.email;
         let projects = user.getProjects();
-        res.render('my-projects', {email, projects});
+        res.json({email, projects});
     } catch(error) {
-        res.render('home', {error: error.message})
+        res.json(error);
     }
 });
 

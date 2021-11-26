@@ -5,10 +5,6 @@ const projectService = require('../services/projectService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwn } = require('../middlewares/projectMiddleware');
 
-router.get('/create-project', isAuth, (req, res) => {
-    res.render('projectId/create');
-});
-
 router.post ('/create-project', isAuth, async (req, res)  => {
     let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
@@ -27,9 +23,7 @@ router.get('/:projectId/details', async (req, res) => {
 
     let isOwn = req.user?._id == projectId.author;
 
-    let hasVoted = projectId.votes.some(x => x._id == req.user?._id);
-
-    res.render('projectId/details', {...projectId, isOwn, hasVoted})
+    res.render('projectId/details', {...projectId, isOwn})
 });
 
 router.get('/:projectId/edit', isAuth, async(req, res) => {
