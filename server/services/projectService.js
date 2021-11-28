@@ -3,7 +3,7 @@ const Project = require('../models/Project');
 const User = require('../models/User');
 
 exports.getAll = function () {
-    return Project.find({}).lean();
+    return Project.find({});
 };
 
 exports.create = async function (projectData) {
@@ -17,18 +17,18 @@ exports.create = async function (projectData) {
 };
 
 exports.getOne = function (id) {
-    return Project.findById(id).lean();
+    return Project.findById(id);
 };
 
 exports.updateOne = function (id, 
     { projectData }) {
     return Project.findByIdAndUpdate(id, 
         { ...projectData
-        }, { runValidators: true }).lean();
+        }, { runValidators: true });
 };
 
 exports.deleteOne = function (id) {
-    return Project.findByIdAndDelete(id).lean();
+    return Project.findByIdAndDelete(id);
 };
 
 exports.join = async function (projectId, userId) {
