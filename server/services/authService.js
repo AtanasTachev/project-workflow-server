@@ -29,5 +29,5 @@ exports.createToken = function(user) {
 };
 
 exports.getUser = function(id) {
-    return User.findById(id).populate('myPosts');
+    return User.findById(id).populate('myProjects');
 }
