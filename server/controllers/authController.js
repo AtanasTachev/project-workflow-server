@@ -8,7 +8,7 @@ router.post('/register', async (req, res) => {
     try {
         if(password === repeatPassword) {
             await authService.register( firstName, lastName, email, password, repeatPassword )
-            res.redirect('/');
+            res.json({ok: true});
         }
     } catch (error) {
         res.json(error);
@@ -28,7 +28,7 @@ router.post('/login', async(req, res) => {
         res.cookie(TOKEN_COOKIE, token, {
             httpOnly: true
         });
-        res.redirect('/');
+        res.json({ok: true});
     } catch (error) {
         res.json(error);
         
@@ -37,7 +37,7 @@ router.post('/login', async(req, res) => {
 
 router.get('/logout', isAuth, (req, res) => {
     res.clearCookie(TOKEN_COOKIE);
-    res.redirect('/');
+    res.json({ok: true});
 });
 
 

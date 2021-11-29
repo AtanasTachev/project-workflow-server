@@ -5,11 +5,11 @@ const projectService = require('../services/projectService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwn } = require('../middlewares/projectMiddleware');
 
-router.post ('/', isAuth, async (req, res)  => {
+router.post ('/', async (req, res)  => {
     let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
     try { 
-        await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead, req.user._id );
+        await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead );
         res.json({ok: true});
     } catch (error) { 
         res.json(error);
