@@ -28,7 +28,7 @@ exports.updateOne = function (id,
 };
 
 exports.deleteOne = function (id) {
-    return Project.findByIdAndDelete(id);
+    return Project.findByIdAndDelete(id)
 };
 
 exports.join = async function (projectId, userId) {

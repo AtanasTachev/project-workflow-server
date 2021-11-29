@@ -5,14 +5,13 @@ const projectService = require('../services/projectService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwn } = require('../middlewares/projectMiddleware');
 
-router.post ('/create-project', isAuth, async (req, res)  => {
+router.post ('/', isAuth, async (req, res)  => {
     let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
     try { 
         await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead, req.user._id );
         res.json({ok: true});
     } catch (error) { 
-        // let projectId = await projectService.getOne(req.params.projectId);
         res.json(error);
     }
 
@@ -21,7 +20,7 @@ router.post ('/create-project', isAuth, async (req, res)  => {
 router.get('/:projectId/details', async (req, res) => {
     let project = await projectService.getOne(req.params.projectId);
 
-    let isOwn = req.user?._id == project.creator;
+    isOwn = req.user?._id == project.creator;
 
     res.json(project);
 });
@@ -48,7 +47,7 @@ router.put('/:projectId/edit',isAuth, async(req, res) => {
 
 });
 
-router.get('/:projectId/delete', isAuth, isOwn, async(req, res) => {
+router.delete('/:projectId/delete', isAuth, isOwn, async(req, res) => {
     try{
         await projectService.deleteOne(req.params.projectId);
         res.json({ok: true});

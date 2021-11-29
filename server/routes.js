@@ -7,7 +7,7 @@ const projectController = require('./controllers/projectController');
 
 router.use(homeController);
 router.use(authController);
-router.use('/project',projectController);
+router.use('/projects',projectController);
 
 
 module.exports = router;
