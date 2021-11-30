@@ -3,19 +3,35 @@ const { TOKEN_COOKIE } = require('../constants');
 const authService = require('../services/authService');
 const { isAuth } = require('../middlewares/authMiddleware');
 
-router.post('/register', async (req, res) => {
-    let {firstName, lastName, email, password, repeatPassword } = req.body;
+router.post('/register', async (req, res, next) => {
+    let {specialty,
+        title,
+        firstName,
+        lastName,
+        email,
+        password } = req.body;
     try {
         if(password === repeatPassword) {
-            await authService.register( firstName, lastName, email, password, repeatPassword )
-            res.json({ok: true});
+            let user = await authService.register({             
+                specialty,
+                title,
+                firstName,
+                lastName,
+                email,
+                password })
+            let accessToken = await authService.login({email, password})
+            res.json({
+                _id: user._id,
+                email: user.email,
+                accessToken
+            });
         }
     } catch (error) {
-        res.json(error);
+        next(error);
     }
 });
 
-router.post('/login', async(req, res) => {
+router.post('/login', async(req, res, next) => {
     const { email, password } = req.body;
     try{ 
         let user = await authService.login(email, password);
@@ -28,9 +44,13 @@ router.post('/login', async(req, res) => {
         res.cookie(TOKEN_COOKIE, token, {
             httpOnly: true
         });
-        res.json({ok: true});
+        res.json({
+            _id: user._id,
+            email: user.email,
+            accessToken
+        });
     } catch (error) {
-        res.json(error);
+        next(error);
         
     }
 });

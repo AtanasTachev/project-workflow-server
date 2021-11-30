@@ -6,7 +6,7 @@ const projectController = require('./controllers/projectController');
 
 
 router.use(homeController);
-router.use(authController);
+router.use('/users', authController);
 router.use('/projects',projectController);
 
 

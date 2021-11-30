@@ -3,7 +3,7 @@ const { jwtSign } = require('../utils/jwtSign');
 const { SECRET } = require('../constants');
 
 exports.register = function (firstName, lastName, email, password, repeatPassword ) {
-    return User.create({firstName, lastName, email, password, repeatPassword,});
+    return User.create({firstName, lastName, email, password, repeatPassword});
 };
 
 exports.login = function (email, password ) {
