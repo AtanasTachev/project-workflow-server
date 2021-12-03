@@ -6,12 +6,12 @@ const userSchema = new mongoose.Schema ({
     specialty: {
         type: String,
         enum: ['Arch', 'Struct', 'WSS', 'El', 'HVAC', 'FS', 'LS', 'GD'],
-        required: true,
+        required: true
     },
     title: {
         type: String,
         enum: ['arch.', 'eng.', 'l.arch.'],
-        required: true,
+        required: true
     },
     firstName: {
         type: String,
@@ -29,12 +29,12 @@ const userSchema = new mongoose.Schema ({
         type: String,
         required: true,
         minlength: 5,
-        validate: /[A-Za-z]+@[A-Za-z]+.[A-Za-z]+/i
+        // validate: /[A-Za-z]+@[A-Za-z]+.[A-Za-z]+/i
     },
     password: {
         type: String,
         required: true,
-        minlength: 4,
+        // minlength: 4,
     },
     myProjects: [{
         type: mongoose.Types.ObjectId,

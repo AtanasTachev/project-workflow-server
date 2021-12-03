@@ -18,11 +18,11 @@ const projectSchema = new mongoose.Schema ({
         required: true,
     }, 
     startDate: {
-        type: Date,
+        type: String,
         required: true,
     },  
     dueDate: {
-        type: Date,
+        type: String,
         required: true,
     },   
     imageUrl: {
@@ -36,8 +36,7 @@ const projectSchema = new mongoose.Schema ({
         minlength: [8, 'The description should be at least 8 characters long']
     },
     lead: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
+        type: String
     },
     creator: {
         type: mongoose.Types.ObjectId,

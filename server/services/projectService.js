@@ -10,10 +10,11 @@ exports.create = async function (projectData) {
     let project = new Project({
             ...projectData
     });
-    let user = await User.findByIdAndUpdate (userId, {
-        $push: {myProjects: projectId}
-    })
-    return [project.save(), user];
+    console.log(project);
+    // let user = await User.findByIdAndUpdate (userId, {
+    //     $push: {myProjects: projectId}
+    // })
+    return project.save();
 };
 
 exports.getOne = function (id) {

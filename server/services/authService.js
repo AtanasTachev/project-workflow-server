@@ -2,32 +2,34 @@ const User = require('../models/User');
 const { jwtSign } = require('../utils/jwtSign');
 const { SECRET } = require('../constants');
 
-exports.register = function (firstName, lastName, email, password, repeatPassword ) {
-    return User.create({firstName, lastName, email, password, repeatPassword});
+exports.register = function ({...userData}) {
+    return User.create({...userData});
 };
 
-exports.login = function (email, password ) {
-    return User.findByEmail(email)
-    .then(user => Promise.all([user.validatePassword(password), user]))
-    .then(([isValid, user]) => {
+exports.login = async function ( email, password ) {
+
+    let user = await User.findByEmail(email);
+    console.log(user);
+    let isValid = user.validatePassword(password);
+
         if(isValid) {
-            return user;
+            let accessToken = await jwtSign({ _id: user._id, email: user.email}, SECRET )
+            await user.save();
+            return { user, accessToken };
         } else {
             throw { message: 'Invalid email or password'}
         }
-    })
-    .catch(() => null);
-}
+    };
 
-exports.createToken = function(user) {
-    let payload = {
-        _id: user._id,
-        email: user.email
-    }
+// exports.createToken = function(user) {
+//     let payload = {
+//         _id: user._id,
+//         email: user.email
+//     }
     
-        return jwtSign(payload, SECRET);
-};
+//         return jwtSign(payload, SECRET);
+// };
 
-exports.getUser = function(id) {
-    return User.findById(id).populate('myProjects');
-}
+// exports.getUser = function(id) {
+//     return User.findById(id).populate('myProjects');
+// }

@@ -5,14 +5,19 @@ const projectService = require('../services/projectService');
 const { isAuth } = require('../middlewares/authMiddleware');
 const { isOwn } = require('../middlewares/projectMiddleware');
 
-router.post ('/', async (req, res)  => {
-    let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
+router.get('/', async(req,res) => {
+    let projects = await projectService.getAll();
+    res.json(projects);
+}) 
 
+router.post ('/create', async (req, res)  => {
+    let projectData = req.body;
+console.log(req.body);
     try { 
-        await projectService.create( title, contractor, location, startDate, dueDate, imageUrl, description, lead );
-        res.json({ok: true});
+        let project = await projectService.create(projectData);
+        res.status(200).json(project);
     } catch (error) { 
-        res.json(error);
+        res.status(404).json({message: error.message});
     }
 
 });
@@ -37,12 +42,12 @@ router.put('/:projectId/edit',isAuth, async(req, res) => {
         let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
 
         let projectId = req.params.projectId;
-        await projectService.updateOne(projectId, {title, contractor, location, startDate, dueDate, imageUrl, description, lead});
-        res.json({ok: true});
+        let project = await projectService.updateOne(projectId, {title, contractor, location, startDate, dueDate, imageUrl, description, lead});
+        res.status(200).json(project);
         
     }catch(error) {
         let project = await projectService.getOne(req.params.projectId);
-        res.json(project);
+        res.status(200).json(project);
     }
 
 });
@@ -53,7 +58,7 @@ router.delete('/:projectId/delete', isAuth, isOwn, async(req, res) => {
         res.json({ok: true});
 
     }catch(error) {
-        res.json(error);
+        res.json({message: error.message});
     }
 });
 
