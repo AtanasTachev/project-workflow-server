@@ -12,7 +12,7 @@ router.get('/', async(req,res) => {
 
 router.post ('/create', async (req, res)  => {
     let projectData = req.body;
-console.log(req.body);
+// console.log(req.body);
     try { 
         let project = await projectService.create(projectData);
         res.status(200).json(project);

@@ -6,11 +6,11 @@ exports.getAll = function () {
     return Project.find({});
 };
 
-exports.create = async function (projectData) {
+exports.create = async function ({...projectData}) {
     let project = new Project({
             ...projectData
     });
-    console.log(project);
+    // console.log(project);
     // let user = await User.findByIdAndUpdate (userId, {
     //     $push: {myProjects: projectId}
     // })
