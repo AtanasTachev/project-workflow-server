@@ -47,7 +47,7 @@ router.put('/:projectId/edit', async(req, res) => {
 
 });
 
-router.delete('/:projectId/delete', isAuth, isOwn, async(req, res) => {
+router.delete('/:projectId/delete', async(req, res) => {
     try{
         await projectService.deleteOne(req.params.projectId);
         res.json({ok: true});
