@@ -12,7 +12,7 @@ router.get('/', async(req,res) => {
 
 router.post ('/create', async (req, res)  => {
     let projectData = req.body;
-// console.log(req.body);
+
     try { 
         let project = await projectService.create(projectData);
         res.status(200).json(project);
@@ -24,30 +24,25 @@ router.post ('/create', async (req, res)  => {
 
 router.get('/:projectId/details', async (req, res) => {
     let project = await projectService.getOne(req.params.projectId);
-
-    // isOwn = req.user?._id == project.creator;
-
     res.json(project);
 });
 
-router.get('/:projectId/edit', isAuth, async(req, res) => {
+router.get('/:projectId/edit', async(req, res) => {
 
     let project = await projectService.getOne(req.params.projectId);
 
     res.json(project);
 });
 
-router.put('/:projectId/edit',isAuth, async(req, res) => {
+router.put('/:projectId/edit', async(req, res) => {
     try{
-        let {title, contractor, location, startDate, dueDate, imageUrl, description, lead} = req.body;
-
+        let projectData = req.body;
         let projectId = req.params.projectId;
-        let project = await projectService.updateOne(projectId, {title, contractor, location, startDate, dueDate, imageUrl, description, lead});
+        let project = await projectService.updateOne(projectId, projectData);
         res.status(200).json(project);
         
     }catch(error) {
-        let project = await projectService.getOne(req.params.projectId);
-        res.status(200).json(project);
+        console.log({message: error.message});
     }
 
 });

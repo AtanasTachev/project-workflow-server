@@ -6,11 +6,11 @@ exports.getAll = function () {
     return Project.find({});
 };
 
-exports.create = async function ({...projectData}) {
+exports.create = async function (projectData) {
     let project = new Project({
             ...projectData
     });
-    // console.log(project);
+    console.log(project);
     // let user = await User.findByIdAndUpdate (userId, {
     //     $push: {myProjects: projectId}
     // })
@@ -22,10 +22,10 @@ exports.getOne = function (id) {
 };
 
 exports.updateOne = function (id, 
-    { projectData }) {
-    return Project.findByIdAndUpdate(id, 
-        { ...projectData
-        }, { runValidators: true });
+    title, contractor, location, startDate, dueDate, imageUrl, description, lead) {
+        // console.log(title, contractor, location, startDate, dueDate, imageUrl, description, lead);
+    return Project.findByIdAndUpdate(id,title, contractor, location, startDate, dueDate, imageUrl, description, lead
+        , { runValidators: true });
 };
 
 exports.deleteOne = function (id) {

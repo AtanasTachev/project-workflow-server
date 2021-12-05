@@ -36,11 +36,12 @@ const projectSchema = new mongoose.Schema ({
         minlength: [8, 'The description should be at least 8 characters long']
     },
     lead: {
-        type: String
+        type: String,
+        required: true
     },
     creator: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
+        type: String,
+        required: true        
     },
 
     team: [{
