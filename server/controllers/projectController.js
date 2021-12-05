@@ -36,7 +36,7 @@ router.get('/:projectId/edit', async(req, res) => {
 
 router.put('/:projectId/edit', async(req, res) => {
     try{
-        let projectData = req.body;
+        let projectData = req.body
         let projectId = req.params.projectId;
         let project = await projectService.updateOne(projectId, projectData);
         res.status(200).json(project);

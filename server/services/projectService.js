@@ -21,10 +21,8 @@ exports.getOne = function (id) {
     return Project.findById(id);
 };
 
-exports.updateOne = function (id, 
-    title, contractor, location, startDate, dueDate, imageUrl, description, lead) {
-        // console.log(title, contractor, location, startDate, dueDate, imageUrl, description, lead);
-    return Project.findByIdAndUpdate(id,title, contractor, location, startDate, dueDate, imageUrl, description, lead
+exports.updateOne = function (id, title, contractor, location, startDate, dueDate, imageUrl, description, lead) {
+    return Project.findByIdAndUpdate(id, title, contractor, location, startDate, dueDate, imageUrl, description, lead
         , { runValidators: true });
 };
 
