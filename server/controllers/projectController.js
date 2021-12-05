@@ -25,7 +25,7 @@ router.post ('/create', async (req, res)  => {
 router.get('/:projectId/details', async (req, res) => {
     let project = await projectService.getOne(req.params.projectId);
 
-    isOwn = req.user?._id == project.creator;
+    // isOwn = req.user?._id == project.creator;
 
     res.json(project);
 });

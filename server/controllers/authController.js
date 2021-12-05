@@ -11,7 +11,6 @@ router.post('/register', async (req, res) => {
         email,
         password,
         repeatPassword } = req.body;
-        // console.log(req.body)
     try {
         if(password === repeatPassword) {
             let user = await authService.register({            
@@ -21,7 +20,6 @@ router.post('/register', async (req, res) => {
                 lastName,
                 email,
                 password });
-                console.log(user);
             let accessToken = await authService.login(email, password)
             res.json({
                 _id: user._id,
@@ -37,9 +35,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async(req, res) => {
 
     try{ 
-        // console.log(req.body);
         const { email, password } = req.body;
-        // console.log([email, password]);
 
         const { user, accessToken } = await authService.login(email, password)
 
@@ -53,8 +49,11 @@ router.post('/login', async(req, res) => {
     }
 });
 
-router.get('/logout', isAuth, (req, res) => {
-    res.json({ok: true});
+router.post('/logout', isAuth, async(req, res) => {
+    res.json({_id: '',
+              email: '',
+              accessToken: ''
+            });
 });
 
 
