@@ -9,7 +9,6 @@ exports.register = function ({...userData}) {
 exports.login = async function ( email, password ) {
 
     let user = await User.findByEmail(email);
-    console.log(user);
     let isValid = user.validatePassword(password);
 
         if(isValid) {
