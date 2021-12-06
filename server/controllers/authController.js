@@ -57,15 +57,26 @@ router.post('/logout', isAuth, async(req, res) => {
 });
 
 
-router.get('/:userId/my-projects', isAuth, async (req, res) => {
+router.get('/:userId/myProjects', async (req, res) => {
     try{
         let user = await authService.getUser(req.user._id);
-        let email = req.user.email;
+        let userInfo = req.user;
         let projects = user.getProjects();
-        res.json({email, projects});
+        res.json({userInfo, projects});
     } catch(error) {
         res.json({message: error.message});
     }
 });
+
+router.get('/getAll', async(req, res) => {
+    try {
+        let allUsers = await authService.getAllUsers();
+        res.json(allUsers);
+
+    } catch(error) {
+        res.json({message: error.message});
+    }
+});
+
 
 module.exports = router;

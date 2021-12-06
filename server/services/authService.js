@@ -20,6 +20,15 @@ exports.login = async function ( email, password ) {
         }
     };
 
+    exports.getUser = function(id) {
+        return User.findById(id).populate('myProjects');
+    }
+
+    exports.getAllUsers = function() {
+        return User.find();
+    }
+ 
+
 // exports.createToken = function(user) {
 //     let payload = {
 //         _id: user._id,
@@ -28,7 +37,3 @@ exports.login = async function ( email, password ) {
     
 //         return jwtSign(payload, SECRET);
 // };
-
-// exports.getUser = function(id) {
-//     return User.findById(id).populate('myProjects');
-// }
