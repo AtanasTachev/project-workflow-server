@@ -57,18 +57,28 @@ router.post('/logout', isAuth, async(req, res) => {
 });
 
 
-router.get('/:userId/myProjects', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     try{
-        let user = await authService.getUser(req.user._id);
-        let userInfo = req.user;
-        let projects = user.getProjects();
-        res.json({userInfo, projects});
+        let user = await authService.getUser(req.params.userId);
+
+        res.json(user);
+
     } catch(error) {
         res.json({message: error.message});
     }
 });
 
-router.get('/getAll', async(req, res) => {
+router.delete('/:userId/delete', async(req, res) => {
+    try{
+        await authService.deleteUser(req.params.userId);
+        res.json({ok: true});
+
+    }catch(error) {
+        res.json({message: error.message});
+    }
+});
+
+router.get('/', async(req, res) => {
     try {
         let allUsers = await authService.getAllUsers();
         res.json(allUsers);

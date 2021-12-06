@@ -20,20 +20,19 @@ exports.login = async function ( email, password ) {
         }
     };
 
-    exports.getUser = function(id) {
-        return User.findById(id).populate('myProjects');
-    }
+exports.getUser = function(id) {
+    let user = User.findById(id);
+    // console.log(user);
+    return user;
+}
 
-    exports.getAllUsers = function() {
-        return User.find();
-    }
- 
+exports.deleteUser = function(id) {
+    let user = User.findByIdAndDelete(id);
+    return user;
+}
 
-// exports.createToken = function(user) {
-//     let payload = {
-//         _id: user._id,
-//         email: user.email
-//     }
-    
-//         return jwtSign(payload, SECRET);
-// };
+exports.getAllUsers = function() {
+    let users = User.find({});
+    return users
+}
+
