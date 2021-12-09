@@ -21,9 +21,22 @@ exports.login = async function ( email, password ) {
     };
 
 exports.getUser = function(id) {
-    let user = User.findById(id);
-    // console.log(user);
+    let user = User.findById(id);    
+  
     return user;
+}
+
+exports.userJoinTeam = async function(userId, projectId) {
+    let userToProject = await User.findByIdAndUpdate(userId, {
+        $push: { $push: { projectsJoined: userId } 
+        }
+    });
+    let joinProject = await Project.findByIdAndUpdate(projectId, {
+        $push: { $push: { team: userId } 
+    }
+    });
+
+    return {joinProject, userToProject};
 }
 
 exports.deleteUser = function(id) {

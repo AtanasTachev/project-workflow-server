@@ -37,12 +37,10 @@ const userSchema = new mongoose.Schema ({
         // minlength: 4,
     },
     myProjects: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Project'
+        type: String
     }],
     projectsJoined: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'Project'
+        type: String
     }]
 });
 

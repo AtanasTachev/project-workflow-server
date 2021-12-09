@@ -45,8 +45,7 @@ const projectSchema = new mongoose.Schema ({
     },
 
     team: [{
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
+        type: String
     }],
 });
 
