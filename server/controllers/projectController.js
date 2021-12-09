@@ -59,7 +59,9 @@ router.delete('/:projectId/delete', async(req, res) => {
 
 router.patch('/:projectId/join', async(req, res) => {
     try{
-        let user = req.body
+        let body = req.body
+        let user = body.user;
+        console.log(user);
         let projectId = req.params.projectId;
         let project = await projectService.join(projectId, user);
         res.status(200).json(project);
