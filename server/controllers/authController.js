@@ -60,7 +60,8 @@ router.post('/logout', isAuth, async(req, res) => {
 router.get('/:userId', async (req, res) => {
     try{
         let user = await authService.getUser(req.params.userId);
-
+        let joinedProjects = user.getJoinedProjects();
+        console.log(joinedProjects);
         res.json(user);
 
     } catch(error) {

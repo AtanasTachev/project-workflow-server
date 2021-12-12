@@ -11,10 +11,10 @@ router.get('/', async(req,res) => {
 }) 
 
 router.post ('/create', async (req, res)  => {
-    let projectData = req.body;
+    let {title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator} = req.body;
 
     try { 
-        let project = await projectService.create(projectData);
+        let project = await projectService.create(title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator);
         res.status(200).json(project);
     } catch (error) { 
         res.status(404).json({message: error.message});
@@ -60,10 +60,23 @@ router.delete('/:projectId/delete', async(req, res) => {
 router.patch('/:projectId/join', async(req, res) => {
     try{
         let body = req.body
-        let user = body.user;
-        console.log(user);
+        let userId = body.userId;
         let projectId = req.params.projectId;
-        let project = await projectService.join(projectId, user);
+        let project = await projectService.join(projectId, userId);
+        res.status(200).json(project);
+        
+    }catch(error) {
+        console.log({message: error.message});
+    }
+
+});
+
+router.patch('/:projectId/leave', async(req, res) => {
+    try{
+        let body = req.body
+        let userId = body.userId;
+        let projectId = req.params.projectId;
+        let project = await projectService.leave(projectId, userId);
         res.status(200).json(project);
         
     }catch(error) {

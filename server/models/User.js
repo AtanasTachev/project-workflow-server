@@ -37,10 +37,12 @@ const userSchema = new mongoose.Schema ({
         // minlength: 4,
     },
     myProjects: [{
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: 'Project'
     }],
     projectsJoined: [{
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: 'Project'
     }]
 });
 
@@ -61,9 +63,15 @@ userSchema.method('validatePassword', function(password) {
 });
 
 
-userSchema.method('getProjects', function() {
+userSchema.method('getMyProjects', function() {
 
     return this.myProjects.map(x => x.title).join(', ');
+
+});
+
+userSchema.method('getJoinedProjects', function() {
+
+    return this.projectsJoined.map(x => x.title).join(', ');
 
 });
 

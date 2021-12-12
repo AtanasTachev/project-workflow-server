@@ -1,4 +1,3 @@
-const { populate } = require('../models/Project');
 const Project = require('../models/Project');
 const User = require('../models/User');
 
@@ -6,15 +5,15 @@ exports.getAll = function () {
     return Project.find({});
 };
 
-exports.create = async function (projectData) {
+exports.create = async function (title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator) {
     let project = new Project({
-            ...projectData
+        title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator
     });
-    console.log(project);
-    // let user = await User.findByIdAndUpdate (userId, {
-    //     $push: {myProjects: projectId}
-    // })
-    return project.save();
+    console.log(creator)
+    let user = await User.findByIdAndUpdate(creator, {
+        $push: { myProjects : title }
+    });
+    return [project.save(), user];
 };
 
 exports.getOne = function (id) {
@@ -37,6 +36,17 @@ exports.join = async function (projectId, userId) {
     });
     let joinProject = await Project.findByIdAndUpdate(projectId, {
         $push: { team : userId }
+    });
+    return [joinProject, user];
+};
+
+exports.leave = async function (projectId, userId) {
+
+    let user = await User.findByIdAndUpdate(userId, {
+        $pull: { projectsJoined: projectId }
+    });
+    let joinProject = await Project.findByIdAndUpdate(projectId, {
+        $pull: { team : userId }
     });
     return [joinProject, user];
 };
