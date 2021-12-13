@@ -22,29 +22,29 @@ router.post ('/create', async (req, res)  => {
 
 });
 
-router.get(':userId/myProjects', async (req, res) => {
-    try{
-        let myProjects = await projectService.getMyProjects(req.params.userId);
-        res.json(myProjects);
-        console.log(myProjects);
-    } catch(error) {
-        res.json({message: error.message});
-    }
-})
+// router.get(':userId/myProjects', async (req, res) => {
+//     try{
+//         let myProjects = await projectService.getMyProjects(req.params.userId);
+//         res.json(myProjects);
+//         console.log(myProjects);
+//     } catch(error) {
+//         res.json({message: error.message});
+//     }
+// })
 
-router.get('/:projectId/details', async (req, res) => {
+router.get('/details/:projectId', async (req, res) => {
     let project = await projectService.getOne(req.params.projectId);
     res.json(project);
 });
 
-router.get('/:projectId/edit', async(req, res) => {
+router.get('/edit/:projectId', async(req, res) => {
 
     let project = await projectService.getOne(req.params.projectId);
 
     res.json(project);
 });
 
-router.put('/:projectId/edit', async(req, res) => {
+router.put('/edit/:projectId', async(req, res) => {
     try{
         let projectData = req.body
         let projectId = req.params.projectId;
@@ -57,7 +57,7 @@ router.put('/:projectId/edit', async(req, res) => {
 
 });
 
-router.delete('/:projectId/delete', async(req, res) => {
+router.delete('/delete/:projectId', async(req, res) => {
     try{
         await projectService.deleteOne(req.params.projectId);
         res.json({ok: true});
@@ -67,7 +67,7 @@ router.delete('/:projectId/delete', async(req, res) => {
     }
 });
 
-router.patch('/:projectId/join', async(req, res) => {
+router.patch('/join/:projectId', async(req, res) => {
     try{
         let body = req.body
         let userId = body.userId;
@@ -81,7 +81,7 @@ router.patch('/:projectId/join', async(req, res) => {
 
 });
 
-router.patch('/:projectId/leave', async(req, res) => {
+router.patch('/leave/:projectId', async(req, res) => {
     try{
         let body = req.body
         let userId = body.userId;

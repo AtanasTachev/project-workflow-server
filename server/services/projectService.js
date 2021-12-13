@@ -16,17 +16,11 @@ exports.create = async function (title, contractor, location, startDate, dueDate
     return [project.save(), user];
 };
 
-exports.getMyProjects = function(userId) {
-    return Project.findByCreator(userId);
-}
 
 exports.getOne = function (id) {
-    const project = Project.findById(id);
-    // const team = project.teamJoin();
-    // console.log(project, team);
+    const project = Project.findById(id).populate({path: 'team'});
     return project;
 };
-
 
 exports.updateOne = function (id, title, contractor, location, startDate, dueDate, imageUrl, description, lead) {
     return Project.findByIdAndUpdate(id, title, contractor, location, startDate, dueDate, imageUrl, description, lead

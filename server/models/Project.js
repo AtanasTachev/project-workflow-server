@@ -54,11 +54,7 @@ const projectSchema = new mongoose.Schema ({
 projectSchema.static('findByCreator', function(creator) {
     return this.find({creator});
 })
-// projectSchema.method('duration', function() {
 
-//     return this.dueDate - this.startDate;
-
-// });
 
 projectSchema.method('teamJoin', function() {
 
