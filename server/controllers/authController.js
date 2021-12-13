@@ -59,11 +59,8 @@ router.post('/logout', isAuth, async(req, res) => {
 
 router.get('/:userId', async (req, res) => {
     try{
-        let user = await authService.getUser(req.params.userId);
-        let joinedProjects = user.getJoinedProjects();
-        console.log(joinedProjects);
+        const user = await authService.getUser(req.params.userId);
         res.json(user);
-
     } catch(error) {
         res.json({message: error.message});
     }

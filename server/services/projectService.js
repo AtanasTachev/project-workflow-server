@@ -9,16 +9,24 @@ exports.create = async function (title, contractor, location, startDate, dueDate
     let project = new Project({
         title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator
     });
-    console.log(creator)
+    // console.log(creator)
     let user = await User.findByIdAndUpdate(creator, {
         $push: { myProjects : title }
     });
     return [project.save(), user];
 };
 
+exports.getMyProjects = function(userId) {
+    return Project.findByCreator(userId);
+}
+
 exports.getOne = function (id) {
-    return Project.findById(id);
+    const project = Project.findById(id);
+    // const team = project.teamJoin();
+    // console.log(project, team);
+    return project;
 };
+
 
 exports.updateOne = function (id, title, contractor, location, startDate, dueDate, imageUrl, description, lead) {
     return Project.findByIdAndUpdate(id, title, contractor, location, startDate, dueDate, imageUrl, description, lead

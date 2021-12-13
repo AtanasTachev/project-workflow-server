@@ -62,16 +62,21 @@ userSchema.method('validatePassword', function(password) {
     return bcrypt.compare(password, this.password);
 });
 
+// userSchema.virtual('myProjectsList', {
+//     ref: 'Project',
+//     localField: '_id',
+//     foreignField: 'creator'
+//   });
 
-userSchema.method('getMyProjects', function() {
+// userSchema.method('getMyProjects', function() {
 
-    return this.myProjects.map(x => x.title).join(', ');
+//     return this.myProjects;
 
-});
+// });
 
 userSchema.method('getJoinedProjects', function() {
 
-    return this.projectsJoined.map(x => x.title).join(', ');
+    return this.projectsJoined;
 
 });
 

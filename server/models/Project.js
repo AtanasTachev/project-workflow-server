@@ -50,15 +50,25 @@ const projectSchema = new mongoose.Schema ({
     }],
 });
 
-projectSchema.method('duration', function() {
 
-    return this.dueDate - this.startDate;
+projectSchema.static('findByCreator', function(creator) {
+    return this.find({creator});
+})
+// projectSchema.method('duration', function() {
+
+//     return this.dueDate - this.startDate;
+
+// });
+
+projectSchema.method('teamJoin', function() {
+
+    return this.team;
 
 });
 
 projectSchema.method('teamJoin', function() {
 
-    return this.team.map(x => `${x.specialty}:${x.title} ${x.firstname} ${x.lastName}`).join(', ');
+    return this.team;
 
 });
 
