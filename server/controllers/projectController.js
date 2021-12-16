@@ -22,15 +22,15 @@ router.post ('/create', async (req, res)  => {
 
 });
 
-// router.get(':userId/myProjects', async (req, res) => {
-//     try{
-//         let myProjects = await projectService.getMyProjects(req.params.userId);
-//         res.json(myProjects);
-//         console.log(myProjects);
-//     } catch(error) {
-//         res.json({message: error.message});
-//     }
-// })
+router.get('/details/team/:projectId', async (req, res) => {
+
+    try{
+        let team = await projectService.getTeam(req.params.projectId);
+        res.json(team);
+    } catch(error) {
+        res.json({message: error.message})
+    }
+});
 
 router.get('/details/:projectId', async (req, res) => {
     let project = await projectService.getOne(req.params.projectId);

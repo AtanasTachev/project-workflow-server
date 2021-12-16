@@ -9,7 +9,6 @@ exports.create = async function (title, contractor, location, startDate, dueDate
     let project = new Project({
         title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator
     });
-    // console.log(creator)
     let user = await User.findByIdAndUpdate(creator, {
         $push: { myProjects : title }
     });
@@ -18,8 +17,14 @@ exports.create = async function (title, contractor, location, startDate, dueDate
 
 
 exports.getOne = function (id) {
-    const project = Project.findById(id).populate({path: 'team'});
-    return project;
+
+    try{
+        const project = Project.findById(id).populate({path: 'team'});
+        return project;
+    } catch (error) {
+        return {message: error.message};
+    }
+    
 };
 
 exports.updateOne = function (id, title, contractor, location, startDate, dueDate, imageUrl, description, lead) {

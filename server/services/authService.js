@@ -24,19 +24,10 @@ exports.login = async function ( email, password ) {
 
 exports.getUser = function(id) {
     let user = User.findById(id)
-    .populate([{path:'projectsJoined', select: 'title'}, {path:'myProjects', select: 'title'}]);    
+    .populate([{path:'projectsJoined'}, {path:'myProjects'}]);    
 
     return user;
 }
-
-// exports.getMyProjects = async function (userId) {
-//     const user = await User.findById(userId);
-//     const myProjects = user.myProjects; 
-//     // console.log(myProjects);
-//     const result = myProjects.map(x => Project.findById(x));
-//     // console.log(result);
-//     return result;
-// };
 
 exports.userJoinTeam = async function(userId, projectId) {
     let userToProject = await User.findByIdAndUpdate(userId, {
