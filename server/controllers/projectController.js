@@ -69,7 +69,7 @@ router.delete('/delete/:projectId', async(req, res) => {
 
 router.patch('/join/:projectId', async(req, res) => {
     try{
-        let body = req.body
+        let body = req.body;
         let userId = body.userId;
         let projectId = req.params.projectId;
         let project = await projectService.join(projectId, userId);
@@ -83,7 +83,7 @@ router.patch('/join/:projectId', async(req, res) => {
 
 router.patch('/leave/:projectId', async(req, res) => {
     try{
-        let body = req.body
+        let body = req.body;
         let userId = body.userId;
         let projectId = req.params.projectId;
         let project = await projectService.leave(projectId, userId);
