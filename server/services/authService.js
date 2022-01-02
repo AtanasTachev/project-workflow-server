@@ -52,3 +52,8 @@ exports.getAllUsers = function() {
     return users
 }
 
+exports.sortUsers = function() {
+    let users = User.sortBySpecialty({specialty});
+    return users
+}
+

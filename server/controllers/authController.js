@@ -86,5 +86,16 @@ router.get('/', async(req, res) => {
     }
 });
 
+router.get('/sort', async(req, res) => {
+    try {
+        let sortedUsers = await authService.sortUsers(specialty);
+        // .populate({ path: 'theoneyouwanttosort', options: { sort: { createdAt: -1 } } }) 
+        res.json(sortedUsers);
+
+    } catch(error) {
+        res.json({message: error.message});
+    }
+});
+
 
 module.exports = router;
