@@ -56,6 +56,19 @@ router.post('/logout', isAuth, async(req, res) => {
             });
 });
 
+router.get('/sort/:specialty', async(req, res) => {
+    try {
+        let specialty = req.params.specialty;
+        // console.log(specialty);
+        let sortedUsers = await authService.sortUsers(specialty);
+        // .populate({ path: 'theoneyouwanttosort', options: { sort: { createdAt: -1 } } }) 
+        console.log(sortedUsers);
+        res.json(sortedUsers);
+
+    } catch(error) {
+        res.json({message: error.message});
+    }
+});
 
 router.get('/:userId', async (req, res) => {
     try{
@@ -70,7 +83,7 @@ router.delete('/:userId/delete', async(req, res) => {
     try{
         await authService.deleteUser(req.params.userId);
         res.json({ok: true});
-
+        
     }catch(error) {
         res.json({message: error.message});
     }
@@ -80,22 +93,12 @@ router.get('/', async(req, res) => {
     try {
         let allUsers = await authService.getAllUsers();
         res.json(allUsers);
-
+        
     } catch(error) {
         res.json({message: error.message});
     }
 });
 
-router.get('/sort', async(req, res) => {
-    try {
-        let sortedUsers = await authService.sortUsers(specialty);
-        // .populate({ path: 'theoneyouwanttosort', options: { sort: { createdAt: -1 } } }) 
-        res.json(sortedUsers);
-
-    } catch(error) {
-        res.json({message: error.message});
-    }
-});
 
 
 module.exports = router;

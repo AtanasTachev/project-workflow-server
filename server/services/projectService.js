@@ -10,7 +10,7 @@ exports.create = async function (title, contractor, location, startDate, dueDate
         title, contractor, location, startDate, dueDate, imageUrl, description, lead, creator
     });
     let user = await User.findByIdAndUpdate(creator, {
-        $push: { myProjects : title }
+        $push: { myProjects : project._id }
     });
     return [project.save(), user];
 };
