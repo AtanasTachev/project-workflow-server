@@ -58,8 +58,8 @@ userSchema.static('findByEmail', function(email) {
     return this.findOne({email});
 });
 
-userSchema.static('sortBySpecialty', function(specialty) {
-    return this.findOne({specialty});
+userSchema.static('sortBySpecialty', function() {
+    return this.find({});
 });
 
 userSchema.method('validatePassword', function(password) {

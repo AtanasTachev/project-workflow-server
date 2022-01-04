@@ -47,8 +47,8 @@ exports.deleteUser = function(id) {
     return user;
 }
 
-exports.sortUsers = function(specialty) {
-    let users = User.sortBySpecialty({specialty});
+exports.sortUsers = function() {
+    let users = User.sortBySpecialty({}).populate({ path: 'specialty' }).sort({'specialty': 'asc'});
     return users
 }
 

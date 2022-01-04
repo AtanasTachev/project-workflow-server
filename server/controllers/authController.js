@@ -56,13 +56,10 @@ router.post('/logout', isAuth, async(req, res) => {
             });
 });
 
-router.get('/sort/:specialty', async(req, res) => {
+router.get('/sort', async(req, res) => {
     try {
-        let specialty = req.params.specialty;
-        // console.log(specialty);
-        let sortedUsers = await authService.sortUsers(specialty);
-        // .populate({ path: 'theoneyouwanttosort', options: { sort: { createdAt: -1 } } }) 
-        console.log(sortedUsers);
+        let sortedUsers = await authService.sortUsers();
+        // console.log(sortedUsers);
         res.json(sortedUsers);
 
     } catch(error) {
