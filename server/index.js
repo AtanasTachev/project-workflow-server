@@ -9,12 +9,14 @@ const initDatabase = require('./config/database');
 const config = require('./config/config')[env];
 const { auth } = require('./middlewares/authMiddleware');
 
+
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(auth);
 app.use(cors());
+app.use('/static', express.static(path.resolve(__dirname, './static')));
 
 require ('dotenv/config');
 
