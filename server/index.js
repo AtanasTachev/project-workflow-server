@@ -19,7 +19,6 @@ app.use(cors());
 require ('dotenv/config');
 
 app.use(routes);
-console.log(config.dbConnection);
 
 initDatabase(config.dbConnection)
 .then(() => {
