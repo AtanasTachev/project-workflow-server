@@ -8,6 +8,7 @@ const env = process.env.NODE_ENV || 'build';
 const initDatabase = require('./config/database');
 const config = require('./config/config')[env];
 const { auth } = require('./middlewares/authMiddleware');
+const dbConnection = process.env.dbConnection;
 
 
 const app = express();
