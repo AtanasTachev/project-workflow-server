@@ -17,7 +17,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(auth);
 app.use(cors());
-app.use('/static', express.static(path.resolve(__dirname, './static')));
 
 require ('dotenv/config');
 
@@ -25,7 +24,7 @@ app.use(routes);
 
 initDatabase(dbConnection)
 .then(() => {
-    app.listen(config.port, console.log.bind(console, `App runnig at http://localhost:${config.port}`));
+    app.listen(process.env.PORT, console.log.bind(console, `App runnig at http://localhost:${process.env.PORT}`));
     console.log('Connected to DB...');
 })
 .catch(error => {
