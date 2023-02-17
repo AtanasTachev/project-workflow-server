@@ -62,12 +62,6 @@ projectSchema.method('teamJoin', function() {
 
 });
 
-projectSchema.method('teamJoin', function() {
-
-    return this.team;
-
-});
-
 const Project = mongoose.model('Project', projectSchema);
 
 module.exports = Project;
