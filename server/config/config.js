@@ -6,6 +6,6 @@ module.exports = {
     },
     build: {
         port: process.env.PORT || 3060,
-        dbConnection: 'mongodb+srv://atanas:3698741Md@cluster0.lgbxa.mongodb.net/projectWorkflow?retryWrites=true&w=majority'
+        dbConnection: 'mongodb+srv://atanas:357951Mongo@cluster0.lgbxa.mongodb.net/projectWorkflow'
     }
 }

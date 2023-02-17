@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set('strictQuery', true)
 const bcrypt = require('bcrypt');
 const SALT = 10;
 
